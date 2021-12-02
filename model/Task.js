@@ -8,7 +8,7 @@ const taskSchema = new Schema(
       min: 5,
       max: 300,
     },
-    complited: {
+    completed: {
       type: Boolean,
       default: false,
     },
