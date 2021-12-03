@@ -4,9 +4,9 @@ const taskSchema = new Schema(
   {
     task: {
       type: String,
-      require: [true, 'There is no text'],
-      min: 5,
-      max: 300,
+      required: [true, 'There is no text'],
+      minlength: 5,
+      maxlength: 300,
     },
     completed: {
       type: Boolean,

@@ -1,9 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const tasksRouter = require('./routes/api/tasks')
-
 require('dotenv').config()
+
+const tasksRouter = require('./routes/api/tasks')
 
 const app = express()
 
@@ -15,9 +15,21 @@ app.use(express.json())
 
 app.use('/api/tasks', tasksRouter)
 
+app.use((req, res, next) => {
+  res.status(404).json('Not found')
+})
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = 'Server error' } = err
+  res.status(status).json({
+    status: 'error',
+    code: status,
+    error: message,
+  })
+})
+
 module.exports = app
 
 /*
   JOI
-  Errors, middlewares
 */
