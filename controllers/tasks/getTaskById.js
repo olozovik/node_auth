@@ -3,6 +3,7 @@ const { Task } = require('../../model')
 
 const getTaskById = async (req, res, next) => {
   const { taskId } = req.params
+  const { id: userId } = req.user
   const isValidId = mongoose.Types.ObjectId.isValid(taskId)
   if (!isValidId) {
     console.log('NOT VALID')
@@ -10,7 +11,7 @@ const getTaskById = async (req, res, next) => {
     error.status = 400
     next(error)
   }
-  const result = await Task.findById(taskId)
+  const result = await Task.findOne({ _id: taskId, owner: userId })
   res.json({
     status: 'success',
     code: 200,

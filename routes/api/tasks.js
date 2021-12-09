@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const { getTasks, addTask, getTaskById } = require('../../controllers')
-const { ctrlWrapper } = require('../../middlewares')
 
-router.get('/', ctrlWrapper(getTasks))
-router.get('/:taskId', ctrlWrapper(getTaskById))
-router.post('/', ctrlWrapper(addTask))
+const { authorization, ctrlWrapper } = require('../../middlewares')
+
+router.get('/', authorization, ctrlWrapper(getTasks))
+router.get('/:taskId', authorization, ctrlWrapper(getTaskById))
+router.post('/', authorization, ctrlWrapper(addTask))
 
 module.exports = router

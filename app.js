@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const tasksRouter = require('./routes/api/tasks')
+const authRouter = require('./routes/api/auth')
 
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(morgan(formatsLogger))
 app.use(cors())
 app.use(express.json())
 
+app.use('/api/auth', authRouter)
 app.use('/api/tasks', tasksRouter)
 
 app.use((req, res, next) => {
@@ -31,5 +33,10 @@ app.use((err, req, res, next) => {
 module.exports = app
 
 /*
+  Создать поле аватара
+  Загрузить дефолтный графатар для юзеров
+  Загрузить картинки в темп с помощью миддлвара
+  Переместить в паблик
+  Переместить в облако
   JOI
 */
